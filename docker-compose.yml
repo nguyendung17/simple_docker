@@ -48,6 +48,31 @@ services:
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
+    depends_on:
+      - webserver1
+      - webserver2
+  webserver1:
+    image: nginx:alpine
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 9991:80
+    volumes:
+      - ./app/:/var/www
+      - ./docker/nginx/app.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network
+  webserver2:
+    image: nginx:alpine
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 9992:80
+    volumes:
+      - ./app/:/var/www
+      - ./docker/nginx/app.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network
   #Scheduler
   scheduler:
     image: php72
