@@ -1,5 +1,23 @@
 version: '3'
 services:
+  nodejs:
+    restart: unless-stopped
+    tty: true
+    build:
+      context: .
+      dockerfile: docker/DockerfileNodejs12
+    image: "nodejs"
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ./app/:/usr/src/app
+    environment:
+      SERVICE_NAME: nodejs
+      SERVICE_TAGS: dev
+    ports:
+      - "7777:3000"
+    networks:
+      - app-network
   php72:
     build:
       context: .
