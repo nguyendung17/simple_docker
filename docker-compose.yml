@@ -1,23 +1,23 @@
 version: '3'
 services:
-  nodejs:
-    restart: unless-stopped
-    tty: true
-    build:
-      context: .
-      dockerfile: docker/DockerfileNodejs12
-    image: "nodejs"
-    restart: unless-stopped
-    tty: true
-    volumes:
-      - ./app/:/usr/src/app
-    environment:
-      SERVICE_NAME: nodejs
-      SERVICE_TAGS: dev
-    ports:
-      - "7777:3000"
-    networks:
-      - app-network
+  # nodejs:
+  #   restart: unless-stopped
+  #   tty: true
+  #   build:
+  #     context: .
+  #     dockerfile: docker/DockerfileNodejs12
+  #   image: "nodejs"
+  #   restart: unless-stopped
+  #   tty: true
+  #   volumes:
+  #     - ./app/:/usr/src/app
+  #   environment:
+  #     SERVICE_NAME: nodejs
+  #     SERVICE_TAGS: dev
+  #   ports:
+  #     - "7777:3000"
+  #   networks:
+  #     - app-network
   php72:
     build:
       context: .
@@ -82,6 +82,7 @@ services:
     working_dir: /var/www
     volumes:
       - ./app/:/var/www
+      - ./docker/:/var/www/docker
       - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - app-network
@@ -94,6 +95,7 @@ services:
     working_dir: /var/www
     volumes:
       - ./app/:/var/www
+      - ./docker/:/var/www/docker
       - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - app-network
